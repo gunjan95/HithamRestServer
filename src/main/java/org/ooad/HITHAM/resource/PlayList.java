@@ -33,6 +33,7 @@ public class PlayList {
 			}
 			String playlist_name = pm.getPlaylist_name();
 			String query = "insert into playlist (playlist_name) values ('"+playlist_name+"') ";
+			System.out.println(query);
 			dbconn.getStmt().executeUpdate(query);
 			return Response.status(201).entity("success").build();
 		}
@@ -72,7 +73,7 @@ public class PlayList {
 			ResultSet rs = dbconn.getStmt().executeQuery(query);
 			JSONArray jsonarray = Convertor.convertToJSON(rs);
 			dbconn.getConn().close();
-			return Response.status(201).entity(jsonarray.toString()).build();
+			return Response.ok().entity(jsonarray.toString()).build();
 		}
 		
 }
