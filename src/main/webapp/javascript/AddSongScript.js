@@ -7,7 +7,7 @@ function loadPlayList() {
 		dataType : 'json',
 		success : function(data) {
 			var no_of_object = data.length;	
-			var query = '<select> ';
+			var query = '<select id="playListSelect"> ';
 			$('#selectPlayList').empty();
 			for (var i = 0; i < no_of_object; i++) {
 				var playlist_id = data[i]['playlist_id'];
@@ -28,11 +28,12 @@ function songFormSubmit() {
 		contentType: 'application/json',
 		async: false,
 		data: JSON.stringify({
-			songlist_name:$('songName').val(),
-			songlist_url: $('songURL').val() ,
-			songlist_pic_url: $('songPicURL').val() ,
-			songlist_color: $('songColor').val() ,
-			songlist_playlist: $('selectPlayList').val()
+			songlist_name:$('#songName').val(),
+			songlist_url: $('#songURL').val() ,
+			songlist_pic_url: $('#songPicURL').val() ,
+			songlist_song_color: $('#songColor').val() ,
+			songlist_playlist: $('#playListSelect').val()
+			
         }),
         success: function(data){
         }
