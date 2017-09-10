@@ -33,7 +33,7 @@ public class PlayList {
 				return Response.status(210).entity("DBError").build();
 			}
 			String playlist_name = pm.getPlaylist_name();
-			String query = "insert into playlist (playlist_name) values ('"+playlist_name+"') ";
+			String query = "insert into playlist (playlist_name) values ('"+playlist_name+"')";
 			System.out.println(query);
 			dbconn.getStmt().executeUpdate(query);
 			dbconn.getConn().close();
