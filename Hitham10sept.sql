@@ -64,7 +64,7 @@ CREATE TABLE `songlist` (
 
 LOCK TABLES `songlist` WRITE;
 /*!40000 ALTER TABLE `songlist` DISABLE KEYS */;
-INSERT INTO `songlist` VALUES (1,'life_is_beautiful','https://drive.google.com/file/d/0BwtDpsO0CtJZZlFfRG1nRjRuY00/view?usp=sharing','gjgjh','green'),(2,'world_is_mine','https://raw.githubusercontent.com/zmxv/react-native-sound-demo/master/advertising.mp3','hgfhg','yellow'),(3,'raga kafi','https://drive.google.com/open?id=0BwtDpsO0CtJZeGlqTG1Obm5FSEE','ghfh','blue'),(8,'bhupali','https://drive.google.com/open?id=0BwtDpsO0CtJZeGlqTG1Obm5FSEE','jhkjdkaskmcsd','red'),(9,'bhairavi','https://drive.google.com/open?id=0BwtDpsO0CtJZeGlqTG1Obm5FSEE','jhkjdkaskmcsd','red');
+INSERT INTO `songlist` VALUES (1,'life_is_beautiful','https://drive.google.com/file/d/0BwtDpsO0CtJZZlFfRG1nRjRuY00/view?usp=sharing','https://drive.google.com/open?id=0BwtDpsO0CtJZc1FKaF9rTU94eDA','green'),(2,'world_is_mine','https://raw.githubusercontent.com/zmxv/react-native-sound-demo/master/advertising.mp3','https://drive.google.com/open?id=0BwtDpsO0CtJZc1FKaF9rTU94eDA','yellow'),(3,'raga kafi','https://drive.google.com/open?id=0BwtDpsO0CtJZeGlqTG1Obm5FSEE','ghfh','blue'),(8,'bhupali','https://drive.google.com/open?id=0BwtDpsO0CtJZeGlqTG1Obm5FSEE','jhkjdkaskmcsd','red'),(9,'bhairavi','https://drive.google.com/open?id=0BwtDpsO0CtJZeGlqTG1Obm5FSEE','jhkjdkaskmcsd','red');
 /*!40000 ALTER TABLE `songlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +92,7 @@ CREATE TABLE `songlist_playlist_mapping` (
 
 LOCK TABLES `songlist_playlist_mapping` WRITE;
 /*!40000 ALTER TABLE `songlist_playlist_mapping` DISABLE KEYS */;
-INSERT INTO `songlist_playlist_mapping` VALUES (1,1),(1,2),(8,3);
+INSERT INTO `songlist_playlist_mapping` VALUES (1,1),(1,2),(2,2),(8,3);
 /*!40000 ALTER TABLE `songlist_playlist_mapping` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,4 +186,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-10 12:24:28
+-- Dump completed on 2017-09-10 16:32:52
