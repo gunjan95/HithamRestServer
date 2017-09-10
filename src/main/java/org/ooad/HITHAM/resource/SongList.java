@@ -23,28 +23,53 @@ public class SongList {
     public Response getSongList(@PathParam("studentId") String id) throws Exception {
        
 		DatabaseConnection dbconn = new DatabaseConnection();
+		JSONObject jso = new JSONObject();
 		if(! dbconn.isStatus()){
 			return Response.status(210).entity("DBError").build();
 		}
-		ResultSet rs;
-		String query = "select * from playlist where playlist_id in (select playlist_id from student_song_assignment where student_id = "+id+")";
+		ResultSet rs,rs1;
+		
+		// query to get profile of a student
+		String queryProfile = "select student_profile from student where student_id = '"+id+"'";
+		rs1 = dbconn.getStmt().executeQuery(queryProfile);
+		while(rs1.next()){
+			jso.put("profile",rs1.getString("student_profile"));
+		}	
+		dbconn.getConn().close();
+		
+		// query to get a playlist of a user
+		String query = "select * from playlist where playlist_id in (select playlist_id from student_song_assignment where student_id = '"+id+"')";
+		dbconn.createConn();
 		rs = dbconn.getStmt().executeQuery(query);
-		JSONArray jsonarray = new JSONArray();
+		JSONArray playlist = new JSONArray();
+		
 		while(rs.next()) {
 			int pid =  rs.getInt("playlist_id");
 			String pname = rs.getString("playlist_name");
-			String query2 = "select * from songlist where songlist_playlist = "+pid;
+			String query2 = "select songlist_id from songlist where songlist_id in ( select  songlist_id from songlist_playlist_mapping where playlist_id = "+pid+")";
 			DatabaseConnection dbconn1 = new DatabaseConnection();
-			ResultSet rs1 = dbconn1.getStmt().executeQuery(query2);
+			ResultSet rs2 = dbconn1.getStmt().executeQuery(query2);
+			JSONArray playlist_songIDs = new JSONArray();
+			while(rs2.next()) {
+				playlist_songIDs.put(rs2.getInt("songlist_id"));
+			}
 			JSONObject jsob = new JSONObject();
 			jsob.put("playlist_name",pname);
 			jsob.put("playlist_id",pid);
-			jsob.put("songArray",Convertor.convertToJSON(rs1));
-			jsonarray.put(jsob);
-			
+			jsob.put("playlist_songIDs",playlist_songIDs);
+			playlist.put(jsob);
 		}
+		
+		jso.put("playlists",playlist);
+		
+		//to get a unique song list of a user
+	    String songquery = "select * from songlist where songlist_id in ( select  songlist_id from songlist_playlist_mapping where playlist_id in (select playlist_id from student_song_assignment where student_id = '"+ id +"'))";
+		rs = dbconn.getStmt().executeQuery(songquery);
+		jso.put("songslist",Convertor.convertToJSON(rs));
+		
+		
 		dbconn.getConn().close();
-		return Response.ok().entity(jsonarray.toString()).build();
+		return Response.ok().entity(jso.toString()).build();
     }
 	
 }

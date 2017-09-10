@@ -11,50 +11,103 @@
 	<link rel="stylesheet" type="text/css" href="../RequiredOfflineFiles/bootstrap.min.css">
 </head>
 <body>
-<img alt="Logo" src="../images/hithamlogo.png">
-<form class="form-horizontal"  id="addSongForm" onsubmit="songFormSubmit()">
-	<div class="form-group">
-		<label class="control-label col-sm-2">Song Name	</label>
-		<div class="col-sm-5">
-			<input type="text" class="form-control" name="songName" id="songName"/>
+<img alt="Logo" src="../images/hithamlogo.png" width="200px" height="200px">
+<br/>
+<div class="container">
+<div class="row">
+	<div class="col-sm-6">
+	<font size="6" color="gray"><b>
+				&nbsp;&nbsp;&nbsp;Add Songs</b></font>
+	<br>
+	<br>
+	<form class="form-horizontal"  id="addSongForm" onsubmit="songFormSubmit()">
+		<div class="form-group">
+			<label class="control-label col-sm-3">Song Name	</label>
+			<div class="col-sm-7">
+				<input type="text" class="form-control" style="width:250px" name="songName" id="songName"/>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="control-label col-sm-2">Song ID	</label>
-		<div class="col-sm-5">
-			<input type="text" class="form-control" name="songURL" id="songURL"/>
+		<div class="form-group">
+			<label class="control-label col-sm-3">Song URL	</label>
+			<div class="col-sm-7">
+				<input type="text" class="form-control" style="width:250px" name="songURL" id="songURL"/>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="control-label col-sm-2">Song Picture ID</label>
-		<div class="col-sm-5">
-			<input type="text" class="form-control" name="songPicURL" id="songPicURL"/>
+		<div class="form-group">
+			<label class="control-label col-sm-3">Song Picture URL</label>
+			<div class="col-sm-7">
+				<input type="text" class="form-control" style="width:250px" name="songPicURL" id="songPicURL"/>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="control-label col-sm-2">Song Color</label>
-		<div class="col-sm-5">
-			<input type="text" class="form-control" name="songColor" id="songColor"/>
+		<div class="form-group">
+			<label class="control-label col-sm-3">Song Color</label>
+			<div class="col-sm-7">
+				<input type="text" class="form-control" style="width:250px" name="songColor" id="songColor"/>
+			</div>
 		</div>
+		
+		
+		<div class="form-group">
+		<div class="control-label col-sm-3"></div>
+			<div class="col-sm-5">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</div>
+			
+			
+			
+	</form>
 	</div>
 	
-	<div class="form-group">
-	<label class="control-label col-sm-2">Select PlayList</label>
-		<div class="col-sm-2"  id="selectPlayList">
-		</div>
-		<div class="col-sm-2">		
-		<font><a href="#create_form" class="btn btn-primary" data-toggle="modal">Create New</a></font>
-		</div>
-	</div>
 	
-	<div class="form-group">
-	<div class="control-label col-sm-2"></div>
-		<div class="col-sm-5">
-			<button type="submit" class="btn btn-primary col-sm-5">Submit</button>
+	<div class="col-sm-6">
+	<font size="6" color="gray"><b>
+				&nbsp;&nbsp;&nbsp;Assign Playlist To Student</b></font>
+	<br>
+	<br>
+		<form class="form-horizontal"  id="assignSongForm" onsubmit="assignSongFormSubmit()">
+		<div class="form-group">
+			<label class="control-label col-sm-3">Student ID</label>
+			<div class="col-sm-7">
+				<input type="text" class="form-control" style="width:200px" name="studentId" id="studentId" onblur="displayPlayList()"/>
+			</div>
 		</div>
+		<div class="form-group" id = "selectPlayList2">
+		</div>
+		<div class="form-group">
+		<div class="control-label col-sm-2"></div>
+			<div class="col-sm-5">
+				<button type="submit" class="btn btn-primary col-sm-5">Submit</button>
+			</div>
+		</div>
+	</form>
 	</div>
-</form>
-
+</div>
+<div class="row" style="padding-top:100px">
+	<div class="col-sm-6">
+	<font size="6" color="gray"><b>
+				&nbsp;&nbsp;&nbsp;Assign Song To Playlist</b></font>
+	<br>
+	<br>
+		<form class="form-horizontal"  id="SongPlaylistForm" onsubmit="assignSongToPlayListFormSubmit()">
+		<div class="form-group">
+			<label class="control-label col-sm-3">PlayList</label>
+			<div class="col-sm-4" id = "selectPlayList3">
+			</div>
+			<font><a href="#create_form" class="btn btn-primary" data-toggle="modal">New playlist</a></font>
+		</div>
+		<div class="form-group" id = "selectSongList1">
+		</div>
+		<div class="form-group">
+		<div class="control-label col-sm-2"></div>
+			<div class="col-sm-5">
+				<button type="submit" class="btn btn-primary col-sm-5">Submit</button>
+			</div>
+		</div>
+	</form>
+	</div>
+</div>
+</div>
 <div id="create_form" class="modal fade">
   <div class="modal-dialog" id="playlistmodal">
   <form class="form">

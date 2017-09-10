@@ -29,7 +29,20 @@ private boolean status;
 			e.printStackTrace();
 			System.out.println(""+e.getMessage());
 		}
-}
+	}
+	
+	public void createConn() {
+		try{
+			conn=DriverManager.getConnection("jdbc:mysql://localhost/HITHAM?useSSL=false","root","");
+			stmt = conn.createStatement();
+			status = true;
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			System.out.println(""+e.getMessage());
+		}
+		
+	}
 
 	public Connection getConn() {
 		return conn;
