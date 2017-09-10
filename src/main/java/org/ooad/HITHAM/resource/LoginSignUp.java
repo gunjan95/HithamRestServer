@@ -10,16 +10,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.ooad.HITHAM.model.Login;
+import org.ooad.HITHAM.model.StudentModel;
 import org.ooad.HITHAM.service.LoginService;
+import org.ooad.HITHAM.service.StudentService;
 
-@Path("/login")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
-
+@Path("user")
 public class LoginSignUp {
 	
 	@POST
-	public Response loginUser(Login login) throws SQLException{
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response loginUser(Login login)throws SQLException{
 		LoginService loginservice = new LoginService();
 		int returnvalue = loginservice.validateLogin(login);
 		if(returnvalue == 0){
@@ -36,4 +38,16 @@ public class LoginSignUp {
 		}
 	}
 
+	@POST
+	@Path("/createstudent")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createStudent(StudentModel sm)throws SQLException{
+		StudentService studentservice = new StudentService();
+		int returnvalue = studentservice.insert(sm);
+		if(returnvalue == 1)
+			return Response.status(201).entity("success").build();
+		else
+			return Response.status(500).build();
+	}
 }

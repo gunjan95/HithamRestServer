@@ -1,6 +1,11 @@
-window.onload = loadPlayList();
 
-// on window load
+function doOnLoad()
+{
+        $("#AddSong").load("AddSong.html");
+        $("#PlayList").load("PlayList.html");
+        $("#Profile").load("Profile.html");
+        loadPlayList();
+}
 function loadPlayList() {
 	$.ajax({
 		url : 'http://localhost:8080/HITHAM/webapi/playlist/display',
@@ -140,4 +145,27 @@ function createNewPlayList() {
 	        }
 		});
 		$('#playlistmodal').modal('toggle');
+		loadPlayList();
 	}
+
+
+
+// create student profile
+function studentProfileSubmit() {
+	$.ajax({
+		url : 'http://localhost:8080/HITHAM/webapi/user/createstudent',
+		type : 'POST',
+		dataType : 'json',
+		contentType: 'application/json',
+		async: false,
+		data: JSON.stringify({
+			student_name:$('#studentName').val(),
+			student_id: $('#studentId1').val() ,
+			student_password: $('#studentpassword').val() ,
+			student_profile: $('#studentProfile').val() ,
+			
+        }),
+        success: function(data){
+        }
+	});
+}

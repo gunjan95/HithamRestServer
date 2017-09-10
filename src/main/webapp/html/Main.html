@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hitham Music Player</title>
+<script src="../RequiredOfflineFiles/jquery.js"></script>
+<script src="../RequiredOfflineFiles/jquery.min.js"></script>
+<script src="../RequiredOfflineFiles/bootstrap.min.js"></script>
+<script src="../javascript/AddSongScript.js"></script>
+<link rel="stylesheet" href="../RequiredOfflineFiles/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../RequiredOfflineFiles/bootstrap.min.css" />
+</head>
+
+<body onload="doOnLoad()">
+
+<div class="container">
+    <div class="page-header" style="border-width: 2px; margin-left:274px; margin-right:315px;">
+    <h3 style="text-align: center;"><b>Hitham</b></h3>
+    </div>
+    <div class="row">
+    	<div class="col-md-10" style="margin-left:-20px;">
+            <div class="panel with-nav-tabs panel-default" style="border-width: 2px;">
+                <div class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#AddSong" data-toggle="tab">Song</a></li>
+                            <li><a href="#PlayList" data-toggle="tab">PlayList</a></li>
+                            <li><a href="#Profile" data-toggle="tab">Student</a></li>
+                        </ul>
+                </div>
+                <div class="panel-body">
+                	<div class="tab-content">
+                		<div id="AddSong" class="tab-pane fade in active"></div>
+                		<div id="PlayList" class="tab-pane"></div>
+                	    <div id="Profile" class="tab-pane"></div>
+              		</div><!--tab content close -->
+            	</div> <!--panel body close -->
+        	</div> <!--panel nav close -->
+    	</div> <!--column close -->
+    	
+   </div><!--row close -->
+</div> <!--container close -->
+
+
+</body>
+</html>
