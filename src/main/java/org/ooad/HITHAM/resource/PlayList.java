@@ -1,3 +1,4 @@
+// this file consists of services related to  teacher
 package org.ooad.HITHAM.resource;
 
 import java.sql.ResultSet;
@@ -55,6 +56,8 @@ public class PlayList {
 			String songlist_url = slm.getSonglist_url();
 			String songlist_pic_url = slm.getSonglist_pic_url();
 			String songlist_song_color = slm.getSonglist_song_color();
+			songlist_url = songlist_url.replace("open","uc?export=download&");
+			songlist_pic_url = songlist_pic_url.replace("open","uc?export=download&");
 			String query = "insert into songlist (songlist_name,songlist_url,songlist_pic_url,songlist_song_color) values ('"+songlist_name+"','"+songlist_url+"','"+songlist_pic_url+"','"+songlist_song_color+"')";
 			System.out.println(query);
 			dbconn.getStmt().executeUpdate(query);

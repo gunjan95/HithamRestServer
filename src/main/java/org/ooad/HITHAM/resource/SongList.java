@@ -1,3 +1,5 @@
+// this file consists of services related to student for getting songlist
+
 package org.ooad.HITHAM.resource;
 
 import java.sql.ResultSet;
@@ -62,7 +64,7 @@ public class SongList {
 		
 		jso.put("playlists",playlist);
 		
-		//to get a unique song list of a user
+		//query to get a unique song list of a user
 	    String songquery = "select * from songlist where songlist_id in ( select  songlist_id from songlist_playlist_mapping where playlist_id in (select playlist_id from student_song_assignment where student_id = '"+ id +"'))";
 		rs = dbconn.getStmt().executeQuery(songquery);
 		jso.put("songslist",Convertor.convertToJSON(rs));
