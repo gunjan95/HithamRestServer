@@ -4,12 +4,12 @@
 				&nbsp;&nbsp;&nbsp;Assign Song To Playlist</b></font>
 	<br>
 	<br>
-		<form class="form-horizontal"  id="SongPlaylistForm" onsubmit="assignSongToPlayListFormSubmit()">
+		<form class="form-horizontal" method="post"  id="SongPlaylistForm" onsubmit="assignSongToPlayListFormSubmit()">
 		<div class="form-group">
-			<label class="control-label col-sm-3">PlayList</label>
+				<label class="control-label col-sm-3">PlayList</label>
 			<div class="col-sm-4" id = "selectPlayList3">
 			</div>
-			<font><a href="#create_form" class="btn btn-primary" data-toggle="modal">New playlist</a></font>
+			<font class="col-sm-4"><a href="#create_form" class="btn btn-primary"  data-toggle="modal">New playlist</a></font>
 		</div>
 		<div class="form-group" id = "selectSongList1">
 		</div>
@@ -28,7 +28,7 @@
 				&nbsp;&nbsp;&nbsp;Assign Playlist To Student</b></font>
 	<br>
 	<br>
-		<form class="form-horizontal"  id="assignSongForm" onsubmit="assignSongFormSubmit()">
+		<form class="form-horizontal" method="post" id="assignSongForm" onsubmit="assignSongFormSubmit()">
 		<div class="form-group">
 			<label class="control-label col-sm-3">Student ID</label>
 			<div class="col-sm-7">

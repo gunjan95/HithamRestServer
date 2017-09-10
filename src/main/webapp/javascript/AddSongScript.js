@@ -13,7 +13,7 @@ function loadPlayList() {
 		dataType : 'json',
 		success : function(data) {
 			var no_of_object = data.length;	
-			var query3 = '<select id="playListSelect3" onchange="displaySongs()"> ';
+			var query3 = '<select id="playListSelect3" style="width:150px" onchange="displaySongs()"> ';
 			$('#selectPlayList3').empty();
 			for (var i = 0; i < no_of_object; i++) {
 				var playlist_id = data[i]['playlist_id'];
