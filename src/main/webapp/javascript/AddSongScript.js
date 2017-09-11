@@ -103,8 +103,10 @@ function songFormSubmit() {
 			songlist_url: $('#songURL').val() ,
 			songlist_pic_url: $('#songPicURL').val() ,
 			songlist_song_color: $('#songColor').val() ,
-			songlist_playlist: $('#playListSelect').val()
-			
+			songlist_raaga: $('#songRaaga').val() ,
+			songlist_taal: $('#songTaal').val() ,
+			songlist_singer: $('#songSinger').val() ,
+			songlist_composer: $('#songComposer').val() 
         }),
         success: function(data){
         }
