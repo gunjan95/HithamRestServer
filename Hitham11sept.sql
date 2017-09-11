@@ -68,7 +68,7 @@ CREATE TABLE `songlist` (
 
 LOCK TABLES `songlist` WRITE;
 /*!40000 ALTER TABLE `songlist` DISABLE KEYS */;
-INSERT INTO `songlist` VALUES (3,'RAMAKRISHNARU','https://drive.google.com/uc?export=download&?id=0BwtDpsO0CtJZck9vYU9QUEttMXc','https://drive.google.com/uc?export=download&?id=0BwtDpsO0CtJZc1FKaF9rTU94eDA','blue','singer 1','ata','composer 1','Amrithavarshini'),(8,' BHAJA BHAJA MANASA','https://drive.google.com/uc?export=download&?id=0BwtDpsO0CtJZOGtNQXc5Z1JjS0U','https://drive.google.com/uc?export=download&?id=0BwtDpsO0CtJZc1FKaF9rTU94eDA','red','singer 2','Dhruva','composer  2','bhairavi'),(9,'Choothamu rare_Samyuktha','https://drive.google.com/uc?export=download&?id=0BwtDpsO0CtJZUFhwSXJfck13cDQ','https://drive.google.com/uc?export=download&?id=0BwtDpsO0CtJZc1FKaF9rTU94eDA','red','singer 3','Triputa','composer  3','Asavari');
+INSERT INTO `songlist` VALUES (3,'RAMAKRISHNARU','https://drive.google.com/uc?export=download&id=0BwtDpsO0CtJZck9vYU9QUEttMXc','https://drive.google.com/uc?export=download&id=0BwtDpsO0CtJZc1FKaF9rTU94eDA','blue','singer 1','ata','composer 1','Amrithavarshini'),(8,' BHAJA BHAJA MANASA','https://drive.google.com/uc?export=download&id=0BwtDpsO0CtJZOGtNQXc5Z1JjS0U','https://drive.google.com/uc?export=download&id=0BwtDpsO0CtJZc1FKaF9rTU94eDA','red','singer 2','Dhruva','composer  2','bhairavi'),(9,'Choothamu rare_Samyuktha','https://drive.google.com/uc?export=download&id=0BwtDpsO0CtJZUFhwSXJfck13cDQ','https://drive.google.com/uc?export=download&id=0BwtDpsO0CtJZc1FKaF9rTU94eDA','red','singer 3','Triputa','composer  3','Asavari');
 /*!40000 ALTER TABLE `songlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-11 19:51:21
+-- Dump completed on 2017-09-11 22:10:17
