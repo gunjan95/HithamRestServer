@@ -60,8 +60,8 @@ public class PlayList {
 			String songlist_taal = slm.getSonglist_taal();
 			String songlist_singer = slm.getSonglist_singer();
 			String songlist_composer = slm.getSonglist_composer();
-			songlist_url = songlist_url.replace("open","uc?export=download&");
-			songlist_pic_url = songlist_pic_url.replace("open","uc?export=download&");
+			songlist_url = songlist_url.replace("open?","uc?export=download&");
+			songlist_pic_url = songlist_pic_url.replace("open?","uc?export=download&");
 			String query = "insert into songlist (songlist_name,songlist_url,songlist_pic_url,songlist_song_color,songlist_raaga,songlist_taal,songlist_singer,songlist_composer) values ('"+songlist_name+"','"+songlist_url+"','"+songlist_pic_url+"','"+songlist_song_color+"','"+songlist_raaga+"','"+songlist_taal+"','"+songlist_singer+"','"+songlist_composer+"')";
 			System.out.println(query);
 			dbconn.getStmt().executeUpdate(query);
