@@ -10,13 +10,17 @@ public class DatabaseConnection {
 private Connection conn = null;
 private Statement stmt = null;
 private boolean status;
-	
-	public DatabaseConnection() 
+private String URL = "jdbc:mysql://localhost/HITHAM?useSSL=false";
+private String Username = "root";
+private String Password = "1234";
+
+
+public DatabaseConnection() 
 	{
 		status = false;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			conn=DriverManager.getConnection("jdbc:mysql://localhost/HITHAM?useSSL=false","root","");
+			conn=DriverManager.getConnection(URL,Username,Password);
 			
 			stmt = conn.createStatement();
 			status = true;
@@ -33,7 +37,7 @@ private boolean status;
 	
 	public void createConn() {
 		try{
-			conn=DriverManager.getConnection("jdbc:mysql://localhost/HITHAM?useSSL=false","root","");
+			conn=DriverManager.getConnection(URL,Username,Password);
 			stmt = conn.createStatement();
 			status = true;
 		}

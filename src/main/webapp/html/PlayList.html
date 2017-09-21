@@ -4,7 +4,7 @@
 				&nbsp;&nbsp;&nbsp;Assign Song To Playlist</b></font>
 	<br>
 	<br>
-		<form class="form-horizontal" method="post"  id="SongPlaylistForm" onsubmit="assignSongToPlayListFormSubmit()">
+		<div class="form-horizontal" id="SongPlaylistForm" >
 		<div class="form-group">
 				<label class="control-label col-sm-3">PlayList</label>
 			<div class="col-sm-4" id = "selectPlayList3">
@@ -16,10 +16,10 @@
 		<div class="form-group">
 		<div class="control-label col-sm-2"></div>
 			<div class="col-sm-5">
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="submit" class="btn btn-primary"  onclick="assignSongToPlayListFormSubmit()">Submit</button>
 			</div>
 		</div>
-	</form>
+	</div>
 	</div>
 </div>
 <div class="row" style="padding-top:100px">
@@ -28,7 +28,7 @@
 				&nbsp;&nbsp;&nbsp;Assign Playlist To Student</b></font>
 	<br>
 	<br>
-		<form class="form-horizontal" method="post" id="assignSongForm" onsubmit="assignSongFormSubmit()">
+		<div class="form-horizontal" id="assignSongForm">
 		<div class="form-group">
 			<label class="control-label col-sm-3">Student ID</label>
 			<div class="col-sm-7">
@@ -46,10 +46,10 @@
 		<div class="form-group">
 		<div class="control-label col-sm-2"></div>
 			<div class="col-sm-5">
-				<button type="submit" class="btn btn-primary col-sm-5">Submit</button>
+				<button type="submit" class="btn btn-primary col-sm-5" onclick="assignSongFormSubmit()">Submit</button>
 			</div>
 		</div>
-	</form>
+	</div>
 </div>
 </div>
 <div id="create_form" class="modal fade">

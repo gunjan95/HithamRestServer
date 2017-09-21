@@ -1,3 +1,5 @@
+var URL = 'http://ehrc-dev.iiitb.ac.in/hitham';
+//var URL = 'http://localhost:8080/hitham';
 
 function doOnLoad()
 {
@@ -8,7 +10,7 @@ function doOnLoad()
 }
 function loadPlayList() {
 	$.ajax({
-		url : 'http://localhost:8080/HITHAM/webapi/playlist/display',
+		url : URL+'/webapi/playlist/display',
 		type : 'GET',
 		dataType : 'json',
 		success : function(data) {
@@ -31,7 +33,7 @@ function loadPlayList() {
 // for assigning playlist to student according to student id
 function displayPlayList() {
 	$.ajax({
-		url : 'http://localhost:8080/HITHAM/webapi/playlist/displayplaylist/'+$('#studentId').val(),
+		url : URL+'/webapi/playlist/displayplaylist/'+$('#studentId').val(),
 		type : 'GET',
 		dataType : 'json',
 		success : function(data) {
@@ -55,12 +57,13 @@ function displayPlayList() {
 //for displaying song to playlist according to playlist
 function displaySongs() {
 	$.ajax({
-		url : 'http://localhost:8080/HITHAM/webapi/playlist/displaysong/'+$('#playListSelect3').val(),
+		url : URL+'/webapi/playlist/displaysong/'+$('#playListSelect3').val(),
 		type : 'GET',
 		dataType : 'json',
 		async: false,
 		success : function(data) {
 			var no_of_object = data.length;	
+			
 			var query = '<label class="control-label col-sm-3">SongList</label>'+
 			'<div class="col-sm-4" >'+
 			'<select id="songListSelect"> ';
@@ -70,16 +73,20 @@ function displaySongs() {
 				var songlist_name = data[i]['songlist_name'];
 				query += '<option value ="'+songlist_id+'">'+songlist_name+'</option>';
 			}
+			
+			if(no_of_object === 0)
+				query += '<option value ="NULL">None</option>';
 			query += '</select></div>';
 			$('#selectSongList1').append(query);
 		}
 	});
+	
 }
 
 // add song to playlist
 function assignSongToPlayListFormSubmit() {
 	$.ajax({
-		url : 'http://localhost:8080/HITHAM/webapi/playlist/songassign/'+$('#songListSelect').val()+'/'+$('#playListSelect3').val(),
+		url : URL+'/webapi/playlist/songassign/'+$('#songListSelect').val()+'/'+$('#playListSelect3').val(),
 		type : 'POST',
 		dataType : 'json',
 		contentType: 'application/json',
@@ -88,12 +95,13 @@ function assignSongToPlayListFormSubmit() {
         success: function(data){
         }
 	});
+	displaySongs();
 }
 
 // add song
 function songFormSubmit() {
 	$.ajax({
-		url : 'http://localhost:8080/HITHAM/webapi/playlist/add',
+		url : URL+'/webapi/playlist/add',
 		type : 'POST',
 		dataType : 'json',
 		contentType: 'application/json',
@@ -118,7 +126,7 @@ function songFormSubmit() {
 // playlist assigned to student
 function assignSongFormSubmit() {
 	$.ajax({
-		url : 'http://localhost:8080/HITHAM/webapi/playlist/assign/'+$('#studentId').val()+'/'+$('#playListSelect2').val(),
+		url : URL+'/webapi/playlist/assign/'+$('#studentId').val()+'/'+$('#playListSelect2').val(),
 		type : 'POST',
 		dataType : 'json',
 		contentType: 'application/json',
@@ -127,14 +135,14 @@ function assignSongFormSubmit() {
         success: function(data){
         }
 	});
-		
+	displayPlayList();	
 }
 
 // create new playlist
 function createNewPlayList() {
 	var selectedoption = document.getElementById("playlist_name").value;
 		$.ajax({
-			url : 'http://localhost:8080/HITHAM/webapi/playlist/create',
+			url : URL+'/webapi/playlist/create',
 			type : 'POST',
 			contentType: 'application/json',
 			dataType : 'json',
@@ -155,7 +163,7 @@ function createNewPlayList() {
 // create student profile
 function studentProfileSubmit() {
 	$.ajax({
-		url : 'http://localhost:8080/HITHAM/webapi/user/createstudent',
+		url : URL+'/webapi/user/createstudent',
 		type : 'POST',
 		dataType : 'json',
 		contentType: 'application/json',
