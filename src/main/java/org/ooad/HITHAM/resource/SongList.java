@@ -49,7 +49,7 @@ public class SongList {
 			dbconn.getConn().close();
 			
 			// query to get a playlist of a user
-			String query = "select * from playlist where playlist_id in (select playlist_id from student_song_assignment where student_id = '"+id+"')";
+			String query = "select * from playlist where playlist_id in (select playlist_id from student_playlist_assignment where student_id = '"+id+"')";
 			dbconn.createConn();
 			rs = dbconn.getStmt().executeQuery(query);
 			JSONArray playlist = new JSONArray();
@@ -57,12 +57,12 @@ public class SongList {
 			while(rs.next()) {
 				int pid =  rs.getInt("playlist_id");
 				String pname = rs.getString("playlist_name");
-				String query2 = "select songlist_id from songlist where songlist_id in ( select  songlist_id from songlist_playlist_mapping where playlist_id = "+pid+")";
+				String query2 = "select song_id from song where song_id in ( select  song_id from recording where recording_id in( select recording_id from recording_playlist_mapping where playlist_id = "+pid+"))";
 				DatabaseConnection dbconn1 = new DatabaseConnection();
 				ResultSet rs2 = dbconn1.getStmt().executeQuery(query2);
 				JSONArray playlist_songIDs = new JSONArray();
 				while(rs2.next()) {
-					playlist_songIDs.put(rs2.getInt("songlist_id"));
+					playlist_songIDs.put(rs2.getInt("song_id"));
 				}
 				JSONObject jsob = new JSONObject();
 				jsob.put("playlist_name",pname);
@@ -74,10 +74,10 @@ public class SongList {
 			jso.put("playlists",playlist);
 			
 			//query to get a unique song list of a user
-		    String songquery = "select * from songlist where songlist_id in ( select  songlist_id from songlist_playlist_mapping where playlist_id in (select playlist_id from student_song_assignment where student_id = '"+ id +"'))";
+		    String songquery = "select s.song_id, s.song_name, s.song_composer , s.song_singer, s.song_raaga , s.song_taal, s.song_url ,r.recording_id , r.recording_name, r.recording_color, r.recording_pic_url from song s,recording r where s.song_id = r.song_id and s.song_id in ( select song_id from song where song_id in ( select  song_id from recording where recording_id in( select recording_id from recording_playlist_mapping where playlist_id in (select playlist_id from student_playlist_assignment where student_id = '"+ id +"'))))";
 			rs = dbconn.getStmt().executeQuery(songquery);
 			jso.put("songslist",Convertor.convertToJSON(rs));
-			
+			jso.put("status", true);
 			
 			dbconn.getConn().close();
 			return Response.ok().entity(jso.toString()).build();
@@ -85,11 +85,15 @@ public class SongList {
 		}
 		else if(returnvalue == 1){
 			//Login is NOT successful
-			return Response.status(204).build();
+			JSONObject jsb = new JSONObject();
+			jsb.put("status", false);
+			return Response.ok().entity(jsb.toString()).build();
 		}
 		else{
 			//DB ERROR
-			return Response.status(500).build();
+			JSONObject jsb = new JSONObject();
+			jsb.put("status", false);
+			return Response.ok().entity(jsb.toString()).build();
 		}
 		
 		

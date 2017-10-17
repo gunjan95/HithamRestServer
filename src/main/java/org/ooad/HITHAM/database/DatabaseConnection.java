@@ -12,7 +12,7 @@ private Statement stmt = null;
 private boolean status;
 private String URL = "jdbc:mysql://localhost/HITHAM?useSSL=false";
 private String Username = "root";
-private String Password = "1234";
+private String Password = "";
 
 
 public DatabaseConnection() 

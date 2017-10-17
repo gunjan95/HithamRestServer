@@ -5,21 +5,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.ooad.HITHAM.database.DatabaseConnection;
-import org.ooad.HITHAM.model.StudentModel;
+import org.ooad.HITHAM.model.TeacherModel;
 
-public class StudentService {
+public class TeacherService {
 
-	public int insert(StudentModel sm) throws SQLException{
+	public int insert(TeacherModel sm) throws SQLException{
 		// TODO Auto-generated method stub
 		DatabaseConnection dbconn = new DatabaseConnection();
 		if(! dbconn.isStatus()){
 			return 10;
 		}
-		String student_name = sm.getStudent_name();
-		String student_id = sm.getStudent_id();
-		String student_password = sm.getStudent_password();
-		String student_profile = sm.getStudent_profile();
-		String query = "insert into student (student_name,student_id,student_password,student_profile) values ('"+student_name+"','"+student_id+"','"+student_password+"','"+student_profile+"')";
+		String teacher_name = sm.getTeacher_name();
+		String teacher_id = sm.getTeacher_id();
+		String teacher_password = sm.getTeacher_password();
+		String query = "insert into teacher (teacher_name,teacher_id,teacher_password) values ('"+teacher_name+"','"+teacher_id+"','"+teacher_password+"')";
 		System.out.println(query);
 		dbconn.getStmt().executeUpdate(query);
 		dbconn.getConn().close();
@@ -32,13 +31,13 @@ public class StudentService {
 		if(! dbconn.isStatus()){
 			return null;
 		}
-		String query = "select * from student where student_status = 'active'";
+		String query = "select * from teacher where teacher_status = 'active'";
 		try{
 			ResultSet result =  dbconn.getStmt().executeQuery(query);
 			return result;
 		}
 		catch(Exception e) {
-			System.out.println("Exception in fetchList of student");
+			System.out.println("Exception in fetchList of teacher");
 			System.out.println(e.getMessage());
 			return null;
 		}
@@ -52,7 +51,7 @@ public class StudentService {
 		if(! dbconn.isStatus()){
 			return 10;
 		}
-		String query = "update student set student_status = 'deactivated' where student_id = '"+id+"'";
+		String query = "update teacher set teacher_status = 'deactivated' where teacher_id = '"+id+"'";
 		try {
 			dbconn.getStmt().executeUpdate(query);
 			dbconn.getConn().close();
@@ -64,17 +63,16 @@ public class StudentService {
 		return 1;
 	}
 
-	public int update(StudentModel sm, String id) {
+	public int update(TeacherModel sm, String id) {
 		// TODO Auto-generated method stub
 		DatabaseConnection dbconn = new DatabaseConnection();
 		if(! dbconn.isStatus()){
 			return 10;
 		}
-		String student_name = sm.getStudent_name();
-		String student_id = sm.getStudent_id();
-		String student_password = sm.getStudent_password();
-		String student_profile = sm.getStudent_profile();
-		String query = "update student set student_name ='"+student_name+"',student_id='"+student_id+"',student_password='"+student_password+"',student_profile='"+student_profile+"' where student_id='"+id+"'";
+		String teacher_name = sm.getTeacher_name();
+		String teacher_id = sm.getTeacher_id();
+		String teacher_password = sm.getTeacher_password();
+		String query = "update teacher set teacher_name ='"+teacher_name+"',teacher_id='"+teacher_id+"',teacher_password='"+teacher_password+"' where teacher_id='"+id+"'";
 		//System.out.println(query);
 		try {
 			dbconn.getStmt().executeUpdate(query);

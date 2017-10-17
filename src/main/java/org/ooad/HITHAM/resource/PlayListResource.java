@@ -17,10 +17,9 @@ import org.json.JSONArray;
 import org.ooad.HITHAM.database.Convertor;
 import org.ooad.HITHAM.database.DatabaseConnection;
 import org.ooad.HITHAM.model.PlayListModel;
-import org.ooad.HITHAM.model.SongListModel;
 
 @Path("playlist")
-public class PlayList {
+public class PlayListResource {
 	
 		// To create a new playlist
 		@POST 
@@ -41,37 +40,11 @@ public class PlayList {
 			return Response.status(201).entity("success").build();
 		}
 		
-		// to add a song to existing playlist
-		@POST 
-		@Path("/add")
-		@Consumes(MediaType.APPLICATION_JSON)
-		@Produces(MediaType.APPLICATION_JSON)
-		public Response create(SongListModel slm) throws SQLException
-		{
-			DatabaseConnection dbconn = new DatabaseConnection();
-			if(! dbconn.isStatus()){
-				return Response.status(210).entity("DBError").build();
-			}
-			String songlist_name = slm.getSonglist_name();
-			String songlist_url = slm.getSonglist_url();
-			String songlist_pic_url = slm.getSonglist_pic_url();
-			String songlist_song_color = slm.getSonglist_song_color();
-			String songlist_raaga = slm.getSonglist_raaga();
-			String songlist_taal = slm.getSonglist_taal();
-			String songlist_singer = slm.getSonglist_singer();
-			String songlist_composer = slm.getSonglist_composer();
-			songlist_url = songlist_url.replace("open?","uc?export=download&");
-			songlist_pic_url = songlist_pic_url.replace("open?","uc?export=download&");
-			String query = "insert into songlist (songlist_name,songlist_url,songlist_pic_url,songlist_song_color,songlist_raaga,songlist_taal,songlist_singer,songlist_composer) values ('"+songlist_name+"','"+songlist_url+"','"+songlist_pic_url+"','"+songlist_song_color+"','"+songlist_raaga+"','"+songlist_taal+"','"+songlist_singer+"','"+songlist_composer+"')";
-			System.out.println(query);
-			dbconn.getStmt().executeUpdate(query);
-			dbconn.getConn().close();
-			return Response.status(201).entity("success").build();
-		}
+		
 		
 		//to display playlists available
 		@GET
-		@Path("/display")
+		@Path("/fetchall")
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
 		public Response displayplaylistAvailable() throws Exception
@@ -80,12 +53,103 @@ public class PlayList {
 			if(! dbconn.isStatus()){
 				return Response.status(210).entity("DBError").build();
 			}
-			String query = "select * from playlist";
+			String query = "select * from playlist where playlist_status = 'active'";
 			ResultSet rs = dbconn.getStmt().executeQuery(query);
 			JSONArray jsonarray = Convertor.convertToJSON(rs);
+			System.out.println(jsonarray.toString());
 			dbconn.getConn().close();
 			return Response.ok().entity(jsonarray.toString()).build();
 		}
+		
+		
+		
+		/*
+		 *  Update the existing playlist
+		 */
+		
+		@POST 
+		@Path("/edit/{playlist_id}")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response update(PlayListModel plm,@PathParam("song_id") String id) throws SQLException
+		{
+			DatabaseConnection dbconn = new DatabaseConnection();
+			if(! dbconn.isStatus()){
+				return Response.status(210).entity("DBError").build();
+			}
+			String playlist_name = plm.getPlaylist_name();
+			
+			String query = "update song set playlist_name = '"+playlist_name+"' where playlist_id = '"+id+"'";
+			System.out.println(query);
+			dbconn.getStmt().executeUpdate(query);
+			dbconn.getConn().close();
+			return Response.status(201).entity("success").build();
+		}
+		
+		/*
+		 * Delete the playlist.
+		 */
+		
+		@POST
+		@Path("/delete/{playlist_id}")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response delete(PlayListModel pm,@PathParam("playlist_id") String id) throws SQLException {
+			DatabaseConnection dbconn = new DatabaseConnection();
+			if(! dbconn.isStatus()){
+				return Response.status(210).entity("DBError").build();
+			}
+			String query = "update playlist set playlist_status = 'deactivated' where playlist_id = '"+id+"'";
+			dbconn.getStmt().executeUpdate(query);
+			dbconn.getConn().close();
+			return Response.status(201).entity("success").build();	
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		@GET
 		@Path("/displayplaylist/{student_id}")
@@ -104,6 +168,7 @@ public class PlayList {
 			return Response.ok().entity(jsonarray.toString()).build();
 		}
 		
+
 		//to assign playlist to a student
 		@POST 
 		@Path("/assign/{student_id}/{playlist_id}")
