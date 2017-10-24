@@ -1,5 +1,4 @@
-// this file consists of services related to student for getting songlist
-
+// this file consists of services related to student for getting songlist (Mobile)
 package org.ooad.HITHAM.resource;
 
 import java.sql.ResultSet;
@@ -15,20 +14,20 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.ooad.HITHAM.database.Convertor;
 import org.ooad.HITHAM.database.DatabaseConnection;
-import org.ooad.HITHAM.model.Login;
-import org.ooad.HITHAM.service.LoginService;
+import org.ooad.HITHAM.model.StudentLoginModel;
+import org.ooad.HITHAM.service.StudentLoginService;
 
 
 
 @Path("songlist")
-public class SongList {
+public class StudentSongList {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getSongList(Login login) throws Exception {
+    public Response getSongList(StudentLoginModel login) throws Exception {
 		
-		LoginService loginservice = new LoginService();
+		StudentLoginService loginservice = new StudentLoginService();
 		int returnvalue = loginservice.validateLogin(login);
 		if(returnvalue == 0){
 			//Login successful

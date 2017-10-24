@@ -20,45 +20,19 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.ooad.HITHAM.database.Convertor;
-import org.ooad.HITHAM.model.Login;
 import org.ooad.HITHAM.model.StudentModel;
-import org.ooad.HITHAM.service.LoginService;
 import org.ooad.HITHAM.service.StudentService;
 
 @Path("student")
 public class StudentResource {
 	
 /*
- * this method is for student login authentication only.(not used till demo 1)
- */
-	@POST
-	@Path("/login")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response loginUser(Login login)throws SQLException{
-		LoginService loginservice = new LoginService();
-		int returnvalue = loginservice.validateLogin(login);
-		if(returnvalue == 0){
-			//Login successful
-			return Response.ok().entity("success").build();
-		}
-		else if(returnvalue == 1){
-			//Login is NOT successful
-			return Response.status(204).build();
-		}
-		else{
-			//DB ERROR
-			return Response.status(500).build();
-		}
-	}
-
-/*
  *  this is to create student account. (used in demo 1)
  */
 	@POST
 	@Path("/createstudent")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public Response createStudent(StudentModel sm)throws SQLException{
 		StudentService studentservice = new StudentService();
 		int returnvalue = studentservice.insert(sm);
@@ -113,7 +87,7 @@ public class StudentResource {
 	@POST
 	@Path("/edit/{student_id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public Response updateStudent(StudentModel sm,@PathParam("student_id") String id) {
 		StudentService studentservice = new StudentService();
 		int returnvalue = studentservice.update(sm,id);
@@ -122,5 +96,6 @@ public class StudentResource {
 		else
 			return Response.status(500).build();
 	}
+	
 	
 }

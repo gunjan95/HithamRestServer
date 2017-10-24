@@ -52,7 +52,7 @@ public class StudentService {
 		if(! dbconn.isStatus()){
 			return 10;
 		}
-		String query = "update student set student_status = 'deactivated' where student_id = '"+id+"'";
+		String query = "update student set student_status = 'deactivated' where student_pk = "+id;
 		try {
 			dbconn.getStmt().executeUpdate(query);
 			dbconn.getConn().close();
@@ -74,7 +74,7 @@ public class StudentService {
 		String student_id = sm.getStudent_id();
 		String student_password = sm.getStudent_password();
 		String student_profile = sm.getStudent_profile();
-		String query = "update student set student_name ='"+student_name+"',student_id='"+student_id+"',student_password='"+student_password+"',student_profile='"+student_profile+"' where student_id='"+id+"'";
+		String query = "update student set student_name ='"+student_name+"',student_id='"+student_id+"',student_password='"+student_password+"',student_profile='"+student_profile+"' where student_pk="+id;
 		//System.out.println(query);
 		try {
 			dbconn.getStmt().executeUpdate(query);

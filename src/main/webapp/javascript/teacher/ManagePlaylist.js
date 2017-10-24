@@ -1,21 +1,26 @@
+var playlist_nameArray = [];
 // create playlist profile
 function playlistProfileSubmit() {
-	alert($('#playlistURL').val());
-	$.ajax({
-		url : URL+'/webapi/playlist/create',
-		type : 'POST',
-		dataType : 'json',
-		contentType: 'application/json',
-		async: false,
-		data: JSON.stringify({
-			playlist_name:$('#playlistName').val(),
-	
-        }),
-        success: function(data){
-        }
-	});
-	$('#playlistProfileForm').modal('toggle');
-	loadplayList();
+	if(playlist_nameArray.indexOf($('#playlistName').val()) != -1) {
+		alert('Name already Exists');
+	}
+	else {
+		$.ajax({
+			url : URL+'/webapi/playlist/create',
+			type : 'POST',
+			dataType : 'json',
+			contentType: 'application/json',
+			async: false,
+			data: JSON.stringify({
+				playlist_name:$('#playlistName').val(),
+		
+	        }),
+	        success: function(data){
+	        }
+		});
+		$('#playlistProfileForm').modal('toggle');
+		loadplayList();
+	}
 }
 
 
@@ -24,8 +29,8 @@ function playlistProfileSubmit() {
 function loadplayList() {
 	//alert("in playlistList");
 	$.ajax({
-		url : URL+'/webapi/playlist/fetchall',
-		type : 'GET',
+		url : URL+'/webapi/playlist/fetch/1',
+		type : 'POST',
 		dataType : 'json',
 		contentType: 'application/json',
 		async: false,
@@ -36,9 +41,12 @@ function loadplayList() {
 					        '<tr>'+
 					            '<th>Name</th>'+
 					            '<th>Edit/Delete</th>'+
+					            '<th>Current Recordings</th>'+
+					            '<th>Assign New Recording</th>'+
 					        '</tr>'+
 					    '</thead>';
 			$('#playlisttable').empty();
+			playlist_nameArray = [];
 			if(no_of_object == 0) {
 				tdata += '<tfoot><tr><td> No data found </td></tr></tfoot>';
 			}
@@ -46,12 +54,15 @@ function loadplayList() {
 				for (var i = 0; i < no_of_object; i++) {
 					var playlist_id = data[i]['playlist_id'];
 					var playlist_name = data[i]['playlist_name'];
+					playlist_nameArray.push(playlist_name);
 					
 					tdata += '<tr><td>'+playlist_name+
-								'</td><td><a  href="#playlistEditForm" data-toggle="modal" onclick="editplaylist(\''+playlist_id+'\',\''+playlist_name+'\')">Edit</a>/<a onclick="deleteplaylist(\''+playlist_name+'\',\''+playlist_id+'\')">delete</a></td></tr>'
+								'</td><td><a  href="#playlistEditForm" data-toggle="modal" onclick="editplaylist(\''+playlist_id+'\',\''+playlist_name+'\')">Edit</a>/<a onclick="deleteplaylist(\''+playlist_name+'\',\''+playlist_id+'\')">delete</a></td>'+
+								'</td><td><a  href="#currentRecordingsForm" data-toggle="modal" onclick="getCurrentRecordingList(\''+playlist_id+'\')">click here</a></td>'+
+								'</td><td><a  href="#recordingAssignForm" data-toggle="modal" onclick="getRecordingList(\''+playlist_id+'\')">click here</a></td></tr>';
 				}
 			}
-			//alert(tdata);
+			//alert(playlist_nameArray);
 			$('#playlisttable').append(tdata);
         }
 	});
@@ -63,7 +74,7 @@ function loadplayList() {
  */
 
 function deleteplaylist(name,id) {
-	
+	//alert('in edit'+URL+'/webapi/playlist/delete/'+id);
 	if (confirm("Do you want to delete "+name+" ?") == true) {
 		$.ajax({
 			url : URL+'/webapi/playlist/delete/'+id,
@@ -106,7 +117,88 @@ function saveEditedplaylist()  {
 }
 
 
+function getRecordingList(id) {
+	//alert(id);
+	playlistID = id;
+	$.ajax({
+		url : URL+'/webapi/playlist/fetchRecordings/'+id,
+		type : 'POST',
+		dataType : 'json',
+		contentType: 'application/json',
+		async: false,
+        success: function(data){
+        	//alert(data);
+        	var no_of_object = data.length;	
+        	var appendData = '';
+        	$('#recordingCheckbox').empty();
+        	if(no_of_object == 0){
+        		appendData += 'No data found';
+        	}
+        	else {
+        		for(var i = 0; i < no_of_object; i++) {
+            		appendData += '<input type="checkbox" name="recordingBox" value="'+data[i]['recording_id']+'"> &nbsp;'+data[i]['recording_name']+'<br>';
+            	}
+        	}
+        	
+        	
+        	$('#recordingCheckbox').append(appendData);
+        }
+	});
+	
+	
+}
 
+
+function createPlaylistRecordingMapping() {
+	var selected = [];
+	$('#recordingCheckbox input:checked').each(function() {
+	    selected.push($(this).attr('value'));
+	});
+	//alert( selected.join(',') +' '+ teacherID);
+	if(selected.length != 0) {
+		$.ajax({
+			url : URL+'/webapi/playlist/recordingPlaylistMapping/'+playlistID,
+			type : 'POST',
+			dataType : 'text',
+			contentType: 'text/plain',
+			async: false,
+			data: ''+selected.join(','),
+	        success: function(data){
+	        }
+		});
+	}
+	$('#recordingAssignForm').modal('toggle');
+}
+
+
+
+function getCurrentRecordingList(id) {
+	$.ajax({
+		url : URL+'/webapi/playlist/fetchAssignedRecordings/'+id,
+		type : 'POST',
+		dataType : 'json',
+		contentType: 'application/json',
+		async: false,
+        success: function(data){
+        	//alert(data);
+        	var no_of_object = data.length;	
+        	var appendData = '<ul>';
+        	$('#currentRecordingList').empty();
+        	if(no_of_object == 0){
+        		appendData += 'No data found';
+        	}
+        	else {
+        		for(var i = 0; i < no_of_object; i++) {
+            		appendData += '&nbsp;&nbsp;&nbsp;&nbsp;<li>'+data[i]['recording_name']+'</li>';
+            	}
+        	}
+        	
+        	appendData += '</ul>';
+        	$('#currentRecordingList').append(appendData);
+        }
+	});
+	
+}
 
 
 

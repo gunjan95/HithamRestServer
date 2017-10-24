@@ -1,25 +1,28 @@
+
 // create song profile
 function songProfileSubmit() {
-	alert($('#songURL').val());
-	$.ajax({
-		url : URL+'/webapi/song/create',
-		type : 'POST',
-		dataType : 'json',
-		contentType: 'application/json',
-		async: false,
-		data: JSON.stringify({
-			song_name:$('#songName').val(),
-			song_url: $('#songURL').val() ,
-			song_raaga: $('#songRaaga').val() ,
-			song_taal: $('#songTala').val() ,
-			song_singer: $('#songSinger').val() ,
-			song_composer: $('#songComposer').val() 
-        }),
-        success: function(data){
-        }
-	});
-	$('#songProfileForm').modal('toggle');
-	loadSongList();
+	//alert($('#songURL').val());
+		$.ajax({
+			url : URL+'/webapi/song/create',
+			type : 'POST',
+			dataType : 'json',
+			contentType: 'application/json',
+			async: false,
+			data: JSON.stringify({
+				song_name:$('#songName').val(),
+				song_url: $('#songURL').val() ,
+				song_raaga: $('#songRaaga').val() ,
+				song_taal: $('#songTala').val() ,
+				song_singer: $('#songSinger').val() ,
+				song_composer: $('#songComposer').val() 
+	        }),
+	        success: function(data){
+	        }
+		});
+		$('#songProfileForm').modal('toggle');
+		loadSongList();
+	
+	
 }
 
 
@@ -48,6 +51,7 @@ function loadSongList() {
 					        '</tr>'+
 					    '</thead>';
 			$('#songList').empty();
+			
 			if(no_of_object == 0) {
 				tdata += '<tfoot><tr><td> No data found </td></tr></tfoot>';
 			}
@@ -60,6 +64,7 @@ function loadSongList() {
 					var song_taal = data[i]['song_taal'];
 					var song_singer = data[i]['song_singer'];
 					var song_composer = data[i]['song_composer'];
+					
 					tdata += '<tr><td>'+song_name+
 								'</td><td>'+song_url+
 								'</td><td>'+song_raaga+
@@ -109,7 +114,7 @@ function editsong(sid,name,url,raaga,taal,singer,composer) {
 }
 
 function saveEditedSong()  {
-	alert('in edit'+URL+'/webapi/song/edit/'+songID);
+	//alert('in edit'+URL+'/webapi/song/edit/'+songID);
 	$.ajax({
 		url : URL+'/webapi/song/edit/'+songID,
 		type : 'POST',

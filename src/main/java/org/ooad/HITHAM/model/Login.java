@@ -1,19 +1,18 @@
 package org.ooad.HITHAM.model;
 
 public class Login {
-	private String student_id;
-	private String student_password;
-	public String getStudent_id() {
-		return student_id;
+	private String username;
+	private String password;
+	public String getusername() {
+		return username;
 	}
-	public void setStudent_id(String student_id) {
-		this.student_id = student_id;
+	public void setusername(String username) {
+		this.username = username;
 	}
-	public String getStudent_password() {
-		return student_password;
+	public String getpassword() {
+		return password;
 	}
-	public void setStudent_password(String student_password) {
-		this.student_password = student_password;
+	public void setpassword(String password) {
+		this.password = password;
 	}
-
 }
