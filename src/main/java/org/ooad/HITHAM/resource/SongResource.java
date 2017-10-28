@@ -44,6 +44,8 @@ public class SongResource {
 		String song_singer = slm.getSong_singer();
 		String song_composer = slm.getSong_composer();
 		song_url = song_url.replace("open?","uc?export=download&");
+		// https://drive.google.com/file/d/0BwtDpsO0CtJZOW40eEZKN0Q3NlE/view?usp=drivesdk
+		song_url = song_url.replace("/file/d/id=","uc?export=download&");
 		String query = "insert into song (song_name,song_url,song_raaga,song_taal,song_singer,song_composer) values ('"+song_name+"','"+song_url+"','"+song_raaga+"','"+song_taal+"','"+song_singer+"','"+song_composer+"')";
 		System.out.println(query);
 		dbconn.getStmt().executeUpdate(query);
