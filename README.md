@@ -1,3 +1,3 @@
 # HithamRestServer
 
-change the folder name to "HITHAM" before adding it to eclipse workspace.
+change the folder name to "hitham" before adding it to eclipse workspace.
