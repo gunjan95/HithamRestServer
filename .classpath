@@ -28,15 +28,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/gunjan/.m2/repository/org/json/json/20160810/json-20160810.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="org.eclipse.jst.component.archivename" value="json-20160810.jar"/>
-			<attribute name="maven.groupId" value="org.json"/>
-			<attribute name="maven.artifactId" value="json"/>
-			<attribute name="maven.version" value="20160810"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

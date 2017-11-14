@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3">Student ID</label>
+			<label class="control-label col-sm-3">Username</label>
 			<div class="col-sm-7">
 				<input type="text" class="form-control" style="width:200px" name="studentId1" id="studentId1"/>
 			</div>
@@ -75,24 +75,33 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3">Student ID</label>
+			<label class="control-label col-sm-3">Username</label>
 			<div class="col-sm-7">
 				<input type="text" class="form-control" style="width:200px" name="studentId2" id="studentId2"required/>
 			</div>
 		</div>
-		<div class="form-group">
+	<!--  	<div class="form-group">
 			<label class="control-label col-sm-3">Password</label>
 			<div class="col-sm-7">
 				<input type="text" class="form-control" style="width:200px" name="studentPassword2" id="studentPassword2" required/>
 			</div>
-		</div>
+		</div> -->
 		<div class="form-group">
 			<label class="control-label col-sm-3">Profile</label>
 			<div class="col-sm-7">
 				<input type="text" class="form-control" style="width:200px" name="studentProfile2" id="studentProfile2" required/>
 			</div>
 		</div>
-           
+        <hr>
+        <div class="form-group">
+			<label class="control-label col-sm-3">New Password</label>
+			<div class="col-sm-5">
+				<input type="password" class="form-control" style="width:200px" name="studentPassword2" id="studentPassword2" required/>
+			</div>
+			<div class="col-sm-3">
+				<button type="button" class="btn btn-primary"  onclick="changePwd()" id="btn3" >Set</button>
+			</div>
+		</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

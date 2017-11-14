@@ -1,17 +1,31 @@
+
 function doOnLoad() {
+	if(localStorage.getItem("teacherName") == undefined){
+    	// Not logged in
+    	window.location.href = "index.html";
+    }
+    else{
+    	uid = localStorage.getItem("teacher_pk");
+    }
+	
     $("#Playlist").load("Playlist.html");
+    $("#Recording").load("Recording.html");
     $("#StudentAssignment").load("StudentA.html");
+    $("#StudentActivity").load("StudentActivities.html");
+    
+    
     setTimeout(function(){
         //do what you need here
         $(document).ready(function(){
         	loadplayList();
-        });
-        
-        $(document).ready(function(){
+        	getSongList();
         	loadStudentForTeacherList();
+        	recordingList();
+        	//alert(localStorage.getItem("teacherName"));
+        	document.getElementById('role').innerHTML = '<span>Teacher : '+localStorage.getItem("teacherName")+'</span>';
+        	//document.getElementById("role").innerHTML = "<h3>"+localStorage.getItem("teacherName")+"</h3>";
         });
     }, 1000);
-
 }
 
 //function loadTeacherList() {
@@ -40,3 +54,9 @@ function doOnLoad() {
 //        }
 //	});
 //}
+
+function logout()
+{
+	localStorage.clear();
+	window.location.href = "index.html";
+}

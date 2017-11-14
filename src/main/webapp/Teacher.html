@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3">teacher ID</label>
+			<label class="control-label col-sm-3">Username</label>
 			<div class="col-sm-7">
 				<input type="text" class="form-control" style="width:200px" name="teacherId1" id="teacherId1"/>
 			</div>
@@ -69,19 +69,23 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3">teacher ID</label>
+			<label class="control-label col-sm-3">Username</label>
 			<div class="col-sm-7">
 				<input type="text" class="form-control" style="width:200px" name="teacherId2" id="teacherId2"required/>
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="control-label col-sm-3">Password</label>
-			<div class="col-sm-7">
-				<input type="text" class="form-control" style="width:200px" name="teacherPassword2" id="teacherPassword2" required/>
+		<hr>
+        <div class="form-group">
+			<label class="control-label col-sm-3">New Password</label>
+			<div class="col-sm-5">
+				<input type="password" class="form-control" style="width:200px" name="teacherPassword2" id="teacherPassword2" required/>
+			</div>
+			<div class="col-sm-3">
+				<button type="button" class="btn btn-primary"  onclick="changePassWord()" id="btn5" >Set</button>
 			</div>
 		</div>
-           
       </div>
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary"  onclick="saveEditedTeacher()" id="btn4" >Save</button>
@@ -119,7 +123,7 @@
 
 
 <div id="currentStudentForm" class="modal fade">
-  <div class="modal-dialog" id="playlistmodal">
+  <div class="modal-dialog">
   <form class="form-horizontal">
     <div class="modal-content">
       <div class="modal-header">
@@ -135,6 +139,7 @@
 	 </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"  onclick="deleteTeacherStudentMapping()" id="btn6" >Delete</button>
       </div>
     </div><!-- /.modal-content -->
      </form>

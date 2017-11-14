@@ -1,8 +1,8 @@
-var student_nameArray = [];
+var student_idArray = [];
 
 // create student profile
 function studentProfileSubmit() {
-	if(student_nameArray.indexOf($('#studentId1').val()) != -1) {
+	if(student_idArray.indexOf($('#studentId1').val()) != -1) {
 		alert('Username already Exists');
 	}
 	else {
@@ -15,7 +15,7 @@ function studentProfileSubmit() {
 			data: JSON.stringify({
 				student_name:$('#studentName').val(),
 				student_id: $('#studentId1').val() ,
-				student_password: $('#studentpassword').val() ,
+				student_password: encryptme($('#studentpassword').val()) ,
 				student_profile: $('#studentProfile').val() 
 				
 	        }),
@@ -46,13 +46,13 @@ function loadStudentList() {
 					        '<tr>'+
 					            '<th>Name</th>'+
 					            '<th>Username</th>'+
-					            '<th>Password</th>'+
 					            '<th>Profile</th>'+
-					            '<th>Edit/Delete</th>'+
+					            '<th>Edit</th>'+
+					            '<th>Delete</th>'+
 					        '</tr>'+
 					    '</thead>';
 			$('#studentList').empty();
-			student_nameArray = [];
+			student_idArray = [];
 			if(no_of_object == 0) {
 				tdata += '<tfoot><tr><td> No data found </td></tr></tfoot>';
 			}
@@ -62,14 +62,14 @@ function loadStudentList() {
 					var student_name = data[i]['student_name'];
 					var student_password = data[i]['student_password'];
 					var student_profile = data[i]['student_profile'];
-					student_nameArray.push(student_id);
+					student_idArray.push(student_id);
 					var student_pk = data[i]['student_pk'];
 					student_ids += '<option>'+student_id+'</option>';
 					tdata += '<tr><td>'+student_name+
 								'</td><td>'+student_id+
-								'</td><td>'+student_password+
 								'</td><td>'+student_profile+
-								'</td><td><a  href="#studentEditForm" data-toggle="modal" onclick="editStudent(\''+student_pk+'\',\''+student_name+'\',\''+student_id+'\',\''+student_password+'\',\''+student_profile+'\')">Edit</a>/<a onclick="deleteStudent(\''+student_pk+'\',\''+student_id+'\')">delete</a></td></tr>'
+								'</td><td>'+'<a href="#studentEditForm" data-toggle="modal" onclick="editStudent(\''+student_pk+'\',\''+student_name+'\',\''+student_id+'\',\''+student_password+'\',\''+student_profile+'\')">Edit</a>'+
+								'</td><td> <a href onclick="deleteStudent(\''+student_pk+'\',\''+student_id+'\')">Delete</a></td></tr>'
 				}
 			}
 			
@@ -107,7 +107,7 @@ function editStudent(pk,name,sid,pass,profile) {
 	studentID = pk;
 	$('#studentName2').val(name);
 	$('#studentId2').val(sid);
-	$('#studentPassword2').val(pass);
+	$('#studentPassword2').val("");
 	$('#studentProfile2').val(profile);
 }
 
@@ -122,7 +122,7 @@ function saveEditedStudent()  {
 		data: JSON.stringify({
 			student_name:$('#studentName2').val(),
 			student_id: $('#studentId2').val() ,
-			student_password: $('#studentPassword2').val() ,
+			//student_password: $('#studentPassword2').val() ,
 			student_profile: $('#studentProfile2').val() ,
 			
         }),
@@ -132,3 +132,24 @@ function saveEditedStudent()  {
 	$('#studentEditForm').modal('toggle');
 	loadStudentList();
 }
+
+function changePwd() {
+	
+	$.ajax({
+		url : URL+'/webapi/student/change/'+studentID,
+		type : 'POST',
+		dataType : 'text',
+		contentType: 'application/json',
+		async: false,
+		data: JSON.stringify({
+			student_password: encryptme($('#studentPassword2').val()) ,
+			
+        }),
+        success: function(data){
+        }
+	});
+	$('#studentEditForm').modal('toggle');
+	loadStudentList();
+	
+}
+

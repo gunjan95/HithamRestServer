@@ -42,12 +42,13 @@ function loadSongList() {
 			var tdata = '<thead>'+
 					        '<tr>'+
 					            '<th>Name</th>'+
-					            '<th>URL</th>'+
+					            '<th>Song</th>'+
 					            '<th>Raga</th>'+
 					            '<th>Tala</th>'+
 					            '<th>Singer</th>'+
 					            '<th>Composer</th>'+
-					            '<th>Edit/Delete</th>'+
+					            '<th>Edit</th>'+
+					            '<th>Delete</th>'+
 					        '</tr>'+
 					    '</thead>';
 			$('#songList').empty();
@@ -64,14 +65,17 @@ function loadSongList() {
 					var song_taal = data[i]['song_taal'];
 					var song_singer = data[i]['song_singer'];
 					var song_composer = data[i]['song_composer'];
-					
+					//song_url = song_url.replace("https://drive.google.com/uc?export=download&id=","https://drive.google.com/open?id=");
 					tdata += '<tr><td>'+song_name+
-								'</td><td>'+song_url+
+								'</td><td><audio controls>'+
+								'<source src="'+song_url+'" type="audio/mpeg">'+
+								'</audio>'+
 								'</td><td>'+song_raaga+
 								'</td><td>'+song_taal+
 								'</td><td>'+song_singer+
 								'</td><td>'+song_composer+
-								'</td><td><a  href="#songEditForm" data-toggle="modal" onclick="editsong(\''+song_id+'\',\''+song_name+'\',\''+song_url+'\',\''+song_raaga+'\',\''+song_taal+'\',\''+song_singer+'\',\''+song_composer+'\')">Edit</a>/<a onclick="deletesong(\''+song_name+'\',\''+song_id+'\')">delete</a></td></tr>'
+								'</td><td><a href="#songEditForm" data-toggle="modal" onclick="editsong(\''+song_id+'\',\''+song_name+'\',\''+song_url+'\',\''+song_raaga+'\',\''+song_taal+'\',\''+song_singer+'\',\''+song_composer+'\')">Edit</a>'+
+								'</td><td><a href onclick="deletesong(\''+song_name+'\',\''+song_id+'\')">Delete</a></td></tr>';
 				}
 			}
 			

@@ -15,7 +15,7 @@ function teacherProfileSubmit() {
 			data: JSON.stringify({
 				teacher_name:$('#teacherName').val(),
 				teacher_id: $('#teacherId1').val() ,
-				teacher_password: $('#teacherpassword').val() 
+				teacher_password: encryptme($('#teacherpassword').val())
 				
 	        }),
 	        success: function(data){
@@ -42,9 +42,9 @@ function loadTeacherList() {
 			var tdata = '<thead>'+
 					        '<tr>'+
 					            '<th>Name</th>'+
-					            '<th>ID</th>'+
-					            '<th>Password</th>'+
-					            '<th>Edit/Delete</th>'+
+					            '<th>Username</th>'+
+					            '<th>Edit</th>'+
+					            '<th>Delete</th>'+
 					            '<th>Current Students</th>'+
 					            '<th>Assign New Student</th>'+
 					        '</tr>'+
@@ -63,10 +63,10 @@ function loadTeacherList() {
 					teacher_nameArray.push(teacher_id);
 					tdata += '<tr><td>'+teacher_name+
 								'</td><td>'+teacher_id+
-								'</td><td>'+teacher_password+
-								'</td><td><a  href="#teacherEditForm" data-toggle="modal" onclick="editteacher(\''+teacher_pk+'\',\''+teacher_name+'\',\''+teacher_id+'\',\''+teacher_password+'\')">Edit</a>/<a onclick="deleteteacher(\''+teacher_id+'\',\''+teacher_pk+'\')">delete</a></td>'+
-								'</td><td><a  href="#currentStudentForm" data-toggle="modal" onclick="getCurrentStudentList(\''+teacher_pk+'\')">click here</a></td>'+
-								'</td><td><a  href="#studentAssignForm" data-toggle="modal" onclick="getStudentList(\''+teacher_pk+'\')">click here</a></td></tr>';
+								'</td><td>'+'<a  href="#teacherEditForm" data-toggle="modal" onclick="editteacher(\''+teacher_pk+'\',\''+teacher_name+'\',\''+teacher_id+'\',\''+teacher_password+'\')">Edit</a>'+
+								'</td><td><a href onclick="deleteteacher(\''+teacher_id+'\',\''+teacher_pk+'\')">Delete</a></td>'+
+								'</td><td><a href="#currentStudentForm" data-toggle="modal" onclick="getCurrentStudentList(\''+teacher_pk+'\')">click here</a></td>'+
+								'</td><td><a href="#studentAssignForm" data-toggle="modal" onclick="getStudentList(\''+teacher_pk+'\')">click here</a></td></tr>';
 				}
 			}
 			
@@ -102,11 +102,11 @@ function editteacher(pk,name,sid,pass) {
 	teacherID = pk;
 	$('#teacherName2').val(name);
 	$('#teacherId2').val(sid);
-	$('#teacherPassword2').val(pass);
+	$('#teacherPassword2').val("");
 }
 
 function saveEditedTeacher()  {
-	//alert('in edit'+URL+'/webapi/teacher/edit/'+teacherID);
+	
 	$.ajax({
 		url : URL+'/webapi/teacher/edit/'+teacherID,
 		type : 'POST',
@@ -116,7 +116,6 @@ function saveEditedTeacher()  {
 		data: JSON.stringify({
 			teacher_name:$('#teacherName2').val(),
 			teacher_id: $('#teacherId2').val() ,
-			teacher_password: $('#teacherPassword2').val() ,
 			
         }),
         success: function(data){
@@ -126,6 +125,25 @@ function saveEditedTeacher()  {
 	loadTeacherList();
 }
 
+function changePassWord() {
+	
+	$.ajax({
+		url : URL+'/webapi/teacher/change/'+teacherID,
+		type : 'POST',
+		dataType : 'text',
+		contentType: 'application/json',
+		async: false,
+		data: JSON.stringify({
+			teacher_password: encryptme($('#teacherPassword2').val()),
+			
+        }),
+        success: function(data){
+        }
+	});
+	$('#teacherEditForm').modal('toggle');
+	loadTeacherList();
+	
+}
 
 
 
@@ -185,6 +203,7 @@ function createTeacherStudentMapping() {
 
 
 function getCurrentStudentList(id) {
+	teacherID = id;
 	$.ajax({
 		url : URL+'/webapi/teacher/fetchAssignedStudents/'+id,
 		type : 'POST',
@@ -201,7 +220,7 @@ function getCurrentStudentList(id) {
         	}
         	else {
         		for(var i = 0; i < no_of_object; i++) {
-            		appendData += '&nbsp;&nbsp;&nbsp;&nbsp;'+data[i]['student_name']+'<br>';
+            		appendData += '<input type="checkbox" name="studentDeleteBox" value="'+data[i]['student_pk']+'"> &nbsp;'+data[i]['student_name']+'<br>';
             	}
         	}
         	
@@ -210,4 +229,29 @@ function getCurrentStudentList(id) {
         }
 	});
 	
+}
+
+function deleteTeacherStudentMapping() {
+
+	var selected = [];
+	$('#currentList input:checked').each(function() {
+	    selected.push($(this).attr('value'));
+	});
+	//alert( selected.join(',') +' '+ teacherID);
+	if(selected.length != 0) {
+		
+		if (confirm("Do you want to delete ?") == true){
+			$.ajax({
+				url : URL+'/webapi/teacher/deleteMapping/'+teacherID,
+				type : 'POST',
+				dataType : 'text',
+				contentType: 'text/plain',
+				async: false,
+				data: ''+selected.join(','),
+		        success: function(data){
+		        }
+			});
+		}
+	}
+	$('#currentStudentForm').modal('toggle');
 }

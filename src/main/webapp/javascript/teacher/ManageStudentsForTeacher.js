@@ -3,13 +3,14 @@
 function loadStudentForTeacherList() {
 	//alert("in studentList");
 	$.ajax({
-		url : URL+'/webapi/teacher/fetchAssignedStudents/1',
+		url : URL+'/webapi/teacher/fetchAssignedStudents/'+uid,
 		type : 'POST',
 		dataType : 'json',
 		contentType: 'application/json',
 		async: false,
         success: function(data){
         	//alert(data.length);
+        	var list_for_activity = '<option value="0">All</option>';
         	var no_of_object = data.length;	
 			var tdata = '<thead>'+
 					        '<tr>'+
@@ -37,10 +38,12 @@ function loadStudentForTeacherList() {
 								'</td><td><a  href="#currentPlaylistForm" data-toggle="modal" onclick="getCurrentplaylist(\''+student_pk+'\')">click here</a></td>'+
 								'<td><a  href="#playlistAssignForm" data-toggle="modal" onclick="getRemainingPlaylist(\''+student_pk+'\')">click here</a></td></tr>';
 				//alert(tdata);
+					list_for_activity += '<option value="'+student_pk+'">'+student_name+'</option>';
 				}
 			}
 			
 			$('#studenttable').append(tdata);
+			$('#student_select').append(list_for_activity);
         }
 	});
 }
@@ -87,7 +90,7 @@ function createPlaylistStudentMapping() {
 	//alert( selected.join(',') +' '+ teacherID);
 	if(selected.length != 0) {
 		$.ajax({
-			url : URL+'/webapi/playlist/studentPlaylistMapping/3/'+studentID,
+			url : URL+'/webapi/playlist/studentPlaylistMapping/'+uid+'/'+studentID,
 			type : 'POST',
 			dataType : 'text',
 			contentType: 'text/plain',
@@ -100,7 +103,9 @@ function createPlaylistStudentMapping() {
 	$('#playlistAssignForm').modal('toggle');
 }
 
+
 function getCurrentplaylist(id) {
+	studentID = id;
 	$.ajax({
 		url : URL+'/webapi/playlist/assignedForStudent/'+id,
 		type : 'POST',
@@ -110,20 +115,46 @@ function getCurrentplaylist(id) {
         success: function(data){
         	//alert(data);
         	var no_of_object = data.length;	
-        	var appendData = '<ul>';
+        	var appendData = '';
         	$('#currentList').empty();
         	if(no_of_object == 0){
-        		appendData += '<li>No data found</li>';
+        		appendData += 'No data found';
         	}
         	else {
         		for(var i = 0; i < no_of_object; i++) {
-            		appendData += '<li>'+data[i]['playlist_name']+'</li>';
+            		appendData += '<input type="checkbox" name="deleteplaylistBox" value="'+data[i]['playlist_id']+'"> &nbsp;'+data[i]['playlist_name']+'<br>';
             	}
         	}
-        	appendData += '</ul>';
+        	
         	
         	$('#currentList').append(appendData);
         }
 	});
 	
 }
+
+function deletePlaylistStudentMapping() {
+
+	var selected = [];
+	$('#currentList input:checked').each(function() {
+	    selected.push($(this).attr('value'));
+	});
+	//alert( selected.join(',') +' '+ teacherID);
+	if(selected.length != 0) {
+		
+		if (confirm("Do you want to delete ?") == true){
+			$.ajax({
+				url : URL+'/webapi/playlist/deleteMapping/'+studentID,
+				type : 'POST',
+				dataType : 'text',
+				contentType: 'text/plain',
+				async: false,
+				data: ''+selected.join(','),
+		        success: function(data){
+		        }
+			});
+		}
+	}
+	$('#currentPlaylistForm').modal('toggle');
+}
+

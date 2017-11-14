@@ -3,8 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Hitham Server</title>
+<script src="RequiredOfflineFiles/jquery.js"></script>
+<script src="RequiredOfflineFiles/jquery.min.js"></script>
+<script src="RequiredOfflineFiles/bootstrap.min.js"></script>
+<script src="javascript/Global.js"></script>
+<script src="javascript/Login.js"></script>
+<link rel="stylesheet" href="RequiredOfflineFiles/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="RequiredOfflineFiles/bootstrap.min.css" />
 </head>
 <body>
-<h2>Don't close this window.</h2>
+<div class="container-fluid" >
+  <div class="row">
+   <div>
+    <div class="col-sm-3"></div>
+	<form method=post>
+	
+		<div class="col-sm-6">
+			<div class="row"><font size="12px"> <b>Login Page</b></font></div>
+			<div class="row">
+				<div class="col-sm-5">
+					  <div class="form-group"><h5>UserName</h5>
+					    <input type="text" class="form-control" name="Username" id="Username" placeholder="UserName" required>
+					  </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-5">
+					 <div class="form-group"><h5>Password</h5>
+					    <input type="password" class="form-control" name="Password" id="Password" placeholder="Password" required>
+					 
+					  </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2">
+					 <div class="form-group">
+					    <input type="button" id = "userLogin"  value="Log In" class="btn btn-primary" onclick="loginFunction();">
+					  </div>
+				</div>
+			</div>	
+		</div>
+		</form>
+		<div class="col-sm-3"></div>
+	</div>
+  </div>
+</div>
 </body>
 </html>

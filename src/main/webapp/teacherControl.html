@@ -7,9 +7,12 @@
 <script src="RequiredOfflineFiles/jquery.min.js"></script>
 <script src="RequiredOfflineFiles/bootstrap.min.js"></script>
 <script src="javascript/Global.js"></script>
+<script src="javascript/excelexportjs.js"></script>
 <script src="javascript/teacher/teacher.js"></script>
 <script src="javascript/teacher/ManagePlaylist.js"></script>
+<script src="javascript/teacher/ManageRecording.js"></script>
 <script src="javascript/teacher/ManageStudentsForTeacher.js"></script>
+<script src="javascript/teacher/StudentActivities.js"></script>
 <link rel="stylesheet" href="RequiredOfflineFiles/font-awesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="RequiredOfflineFiles/bootstrap.min.css" />
 <style>
@@ -24,8 +27,13 @@ th, td {
 
 <div class="container">
     <div class="page-header" style="border-width: 2px; margin-left:150px; margin-right:215px;">
-    <h3 style="text-align: center;"><b>Hitham</b></h3>
-    
+	    <h3 style="text-align: center;"><b>Hitham</b></h3>
+	    <div>
+		    <div id="role"></div>
+		    <div>
+		    	<button onclick="logout()">Logout</button>
+		    </div>
+	    </div>
     </div>
     <div class="row">
     	<div class="col-md-1"></div>
@@ -34,13 +42,17 @@ th, td {
                 <div class="panel-heading">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#Playlist" data-toggle="tab">PlayList</a></li>
+                            <li><a href="#Recording" data-toggle="tab">Recording</a></li>
                             <li><a href="#StudentAssignment" data-toggle="tab">Student</a></li>
+                            <li><a href="#StudentActivity" data-toggle="tab">Activity</a></li>
                         </ul>
                 </div>
                 <div class="panel-body">
                 	<div class="tab-content">
                 		<div id="Playlist" class="tab-pane fade in active"></div>
+                		<div id="Recording" class="tab-pane"></div>
                 		<div id="StudentAssignment" class="tab-pane"></div>
+                		<div id="StudentActivity" class="tab-pane"></div>
               		</div><!--tab content close -->
             	</div> <!--panel body close -->
         	</div> <!--panel nav close -->

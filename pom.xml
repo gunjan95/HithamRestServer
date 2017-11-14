@@ -3,14 +3,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.ooad</groupId>
-    <artifactId>HITHAM</artifactId>
+    <groupId>org.hitham</groupId>
+    <artifactId>hitham</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>HITHAM</name>
+    <name>hitham</name>
 
     <build>
-        <finalName>HITHAM</finalName>
+        <finalName>hitham</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
